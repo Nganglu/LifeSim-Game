@@ -55,6 +55,7 @@ public class World {
 
     public void addCharacter(Character character){
         if(!this.population.contains(character)) {
+            character.setWorld(this);
             character.setAge(calculateCharacterAge(character));
             this.population.add(character);
         };
@@ -68,15 +69,17 @@ public class World {
         return Period.between(character.getDateOfBirth(), this.getCurrentDate()).getYears();
     }
 
+    public void updateCharacterAge(Character character){
+        character.setAge(calculateCharacterAge(character));
+    }
+
     public static void main(String[] args) {
         World world = new World(2014, 1, 31);
 
         Character alter = new Character(LocalDate.of(1996,01,31),"Benjamin","Nguyen","MALE");
         world.addCharacter(alter);
-        alter.setAge(21);
-        alter.generateHeight();
-        alter.generateWeight();
-
+        alter.setWorld(world);
+        alter.generateBody();
 
         System.out.println(alter);
     }
