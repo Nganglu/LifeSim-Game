@@ -1,0 +1,15 @@
+SIMULATION
+    *EVENT SYSTEM
+        -Establishing event format and queueing
+        -EventType definitions
+        -Syncing SimulationManager and World
+    
+    -Daily growth algorithm for age and biological sex
+
+
+BODY
+    -Change units -> age (from year to day), weight (from kg to g), height (from m to cm)
+    -implementing health & energy
+        -Refining body with body parts
+            -derivating part size (height and weight) from body
+            -implementing health for bodyPart

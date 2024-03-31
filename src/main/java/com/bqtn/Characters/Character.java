@@ -1,7 +1,7 @@
 package com.bqtn.Characters;
-import com.bqtn.World;
 
 import java.time.*;
+import java.util.*;
 
 import java.text.DecimalFormat;
 
@@ -9,86 +9,65 @@ public class Character {
 
     private String firstName;
     private String lastName;
-    private LocalDate dateOfBirth;
     private String gender;
-
-    private int age;
-    private int lifeExpectancy;
+    private LocalDate dateOfBirth;
     
-    private Body body;
+    private final Body body;
 
-    private int energy;
-    private int health;
-
-    private World world;
-
-    private CharacterState state;
-
+    private Random random;
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
-    public Character(LocalDate dateOfBirth,String firstName,String lastName,String gender,double height,double weight){
-        this(dateOfBirth,firstName,lastName,gender);
-        this.body = new Body(height, weight, this.getBodyAge(), gender);
+    public Character(String firstName,String lastName,String gender,LocalDate dateOfBirth,int physicalAgeInDays,int percentile){
+        setDetails(firstName,lastName,gender,dateOfBirth);
+        this.body = new Body(physicalAgeInDays,gender,percentile);
     }
 
-    public Character(LocalDate dateOfBirth,String firstName,String lastName,String gender){
-        this.dateOfBirth = dateOfBirth;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gender = gender;
-        this.body = new Body(age, gender);
+    public Character(String firstName,String lastName,String gender,LocalDate dateOfBirth,int physicalAgeInDays){
+        setDetails(firstName,lastName,gender,dateOfBirth);
+        random = new Random();
+        int percentile = (int) Math.round(random.nextGaussian() * 15 + 50);
+        percentile = (percentile > 100 || percentile < 1)?50:percentile;
+        this.body = new Body(physicalAgeInDays,gender,percentile);
     }
 
     public String toString(){
         return this.firstName + " " + this.lastName + " (" + this.gender.toUpperCase() + ")\n" +
-                "Date of Birth: " + this.dateOfBirth + " (" + this.age + " years old)\n" +
-                "Height: " + df.format(this.body.getHeight()) + "cm / Weight: " + df.format(this.body.getWeight()) + "kg";
+                "Date of Birth: " + this.dateOfBirth + "\n" +
+                "Height: " + df.format(this.body.getHeight()) + "cm / Weight: " + df.format(this.body.getWeight()) + "kg\n";
+    }
+    
+    private void setDetails(String firstName,String lastName,String gender,LocalDate dateOfBirth){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public int calculateCharacterAge(LocalDate currentDate){
-        return Period.between(this.dateOfBirth, currentDate).getYears();
+    public void growInDays(int nbOfDays){
+        this.body.simulateGrowth(nbOfDays);
+    }
+
+    public void growInYears(int nbOfYears){
+        this.growInDays(nbOfYears * 365);
     }
 
     public LocalDate getDateOfBirth(){
         return this.dateOfBirth;
     }
-    
-    public void setAge(int age) {
-        this.age = age;
+
+    public Body getBody(){
+        return this.body;
     }
 
-    public void setBodyAge(int age){
-        this.body.setBodyAge(age);
+    public String getFirstName(){
+        return this.firstName;
     }
 
-    public int getBodyAge(){
-        return this.body.getBodyAge();
+    public String getLastName(){
+        return this.lastName;
     }
 
-    public double getWeight() {
-        return this.body.getWeight();
+    public String bodyToString(){
+        return this.body.toString();
     }
-
-    public void setWeight(double weight) {
-        this.body.setWeight(weight);
-    }
-
-    public double getHeight() {
-        return this.body.getHeight();
-    }
-
-    public void setHeight(double height) {
-        this.body.setWeight(height);
-    }
-
-    public void setWorld(World world) {
-        this.world = world;
-    }
-
-    public void generateBody(){
-        this.calculateCharacterAge(this.dateOfBirth);
-        this.body.setBodyAge(this.age);
-        this.body.generateBody();
-    }
-    
 }
