@@ -1,43 +1,48 @@
 package com.bqtn.Items;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.bqtn.Characters.Character;
+import com.bqtn.Characters.InventorySlot;
 
 public interface ItemProperties {
 
-    public interface Consumable {
-        int getFreshness();
-        boolean isPerishable();
+    // public interface Consumable {
+    //     int getFreshness();
+    //     boolean isPerishable();
         
-        void onConsumption(Character character);
-    }
+    //     void onConsumption(Character character);
+    // }
 
     public interface Wearable {
+        InventorySlot getWearableSlot();
         int getThickness();
         int getInsulation();
         boolean isCurrentlyWorn();
     }
 
     public interface Container {
-        int getCapacity();
         boolean isNested();
+        List<Item> getContent();
         
-        ArrayList<Item> getContent();
+        int getCapacityLeft();
+        int getCapacityMax();
+        int getBaseWeight();
         int getTotalWeight();
+
     }
 
-    public interface Furniture {
-        boolean isFixed();
-    }
+    // public interface Furniture {
+    //     boolean isFixed();
+    // }
 
-    public interface Weapon {
-        int getBaseDamage();
-        boolean canBlock();
-    }
+    // public interface Weapon {
+    //     int getBaseDamage();
+    //     boolean canBlock();
+    // }
     
-    public interface Vehicle {
-        int getMaxSpeed();
-        boolean isMotorized();
-    }
+    // public interface Vehicle {
+    //     int getMaxSpeed();
+    //     boolean isMotorized();
+    // }
 }
