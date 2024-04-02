@@ -9,6 +9,7 @@ import com.bqtn.Characters.Character;
 import com.bqtn.Events.EventScheduler;
 import com.bqtn.Items.Item;
 import com.bqtn.Items.ItemTypes.Backpack;
+import com.bqtn.World.World;
 
 public class SimulationController {
     Map<String,Character> characterCatalog;

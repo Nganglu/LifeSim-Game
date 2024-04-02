@@ -7,13 +7,13 @@ public class CharacterSheet {
     private int strength;
     private int dexterity;
     private int intelligence;
-    private int health;
+    private int constitution;
 
     // Derivated
-    private int will;
+    private int willpower;
     private int perception;
-    private int maxHitPoints;
-    private int maxFatigue;
+    private int maxHealth;
+    private int maxEnergy;
 
     private double baseSpeed; // in meters/second
     private double baseLift; // in kg
@@ -22,34 +22,34 @@ public class CharacterSheet {
 
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
-    protected CharacterSheet(int strength,int dexterity,int intelligence,int health) {
-        this.setBaseStats(strength, dexterity, intelligence, health);
+    protected CharacterSheet(int strength,int dexterity,int intelligence,int constitution) {
+        this.setBaseStats(strength, dexterity, intelligence, constitution);
     }
 
     public String toString(){
         return "  ======== STATS ========"+
-                "\nST "+this.strength+" | DX "+this.dexterity+" | IQ "+this.intelligence+" | HT "+this.health+
-                "\nWill: "+this.will+"        Perception: "+this.perception+
+                "\nST "+this.strength+" | DX "+this.dexterity+" | IQ "+this.intelligence+" | HT "+this.constitution+
+                "\nWillpower: "+this.willpower+"        Perception: "+this.perception+
                 "\nSpeed: "+df.format(this.baseSpeed)+"m/s  Lift: "+df.format(this.baseLift)+"kg"+
                 "\n  ------------------------"+
-                "\n Max HP: "+this.maxHitPoints+"  Max Fatigue: "+this.maxFatigue+
+                "\n Max HP: "+this.maxHealth+"  Max Energy: "+this.maxEnergy+
                 "\n  ========================";
     }
 
-    protected void setBaseStats(int strength,int dexterity,int intelligence,int health) {
+    protected void setBaseStats(int strength,int dexterity,int intelligence,int constitution) {
         this.strength = strength;
         this.dexterity = dexterity;
         this.intelligence = intelligence;
-        this.health = health;
+        this.constitution = constitution;
         this.updateDerivatedStats();
     }
 
     protected void updateDerivatedStats(){
-        this.maxHitPoints = this.strength;
-        this.will = this.intelligence;
+        this.maxHealth = this.strength;
+        this.willpower = this.intelligence;
         this.perception = this.intelligence;
-        this.maxFatigue = this.health;
-        this.baseSpeed = 1.0 * (this.health + this.dexterity) / 4;
+        this.maxEnergy = this.constitution;
+        this.baseSpeed = 1.0 * (this.constitution + this.dexterity) / 4;
         this.baseLift = 1.0 * Math.pow(this.strength,2)/10;
     }
 
@@ -71,23 +71,23 @@ public class CharacterSheet {
     protected void setIntelligence(int intelligence){
         this.intelligence = intelligence;
     }
-    protected int getHealth(){
-        return this.health;
+    protected int getConstitution(){
+        return this.constitution;
     }
-    protected void setHealth(int health){
-        this.health = health;
+    protected void setConstitution(int constitution){
+        this.constitution = constitution;
     }
-    protected int getWill(){
-        return this.will;
+    protected int getWillpower(){
+        return this.willpower;
     }
     protected int getPerception(){
         return this.perception;
     }
-    protected int getMaxFatigue(){
-        return this.maxFatigue;
+    protected int getMaxEnergy(){
+        return this.maxEnergy;
     }
-    protected int getMaxHitPoints(){
-        return this.maxHitPoints;
+    protected int getMaxHealth(){
+        return this.maxHealth;
     }
     protected double getBaseSpeed(){
         return this.baseSpeed;

@@ -1,4 +1,4 @@
-package com.bqtn;
+package com.bqtn.World;
 import com.bqtn.Characters.Character;
 
 import java.time.*;

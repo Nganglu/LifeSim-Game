@@ -17,8 +17,8 @@ public class Character {
     private Body body;
     private Inventory inventory;
 
-    private int hitPoints;
-    private int fatigue;
+    private int health;
+    private int energy;
     private int encumbrance; // total weight of items in grams
 
     private boolean isUnconscious;
@@ -64,8 +64,8 @@ public class Character {
     }
 
     public void initDerivatedStats(){
-        this.hitPoints = this.characterSheet.getMaxHitPoints();
-        this.fatigue = this.characterSheet.getMaxFatigue();
+        this.health = this.characterSheet.getMaxHealth();
+        this.energy = this.characterSheet.getMaxEnergy();
         this.encumbrance = 0;
         this.isUnconscious = false;
     }
@@ -107,6 +107,14 @@ public class Character {
         return this.dateOfBirth;
     }
 
+    // Character Sheet
 
+    public int getDexterity(){
+        return this.characterSheet.getDexterity();
+    }
+
+    public double getBaseSpeed(){
+        return this.characterSheet.getBaseSpeed();
+    }
 
 }
