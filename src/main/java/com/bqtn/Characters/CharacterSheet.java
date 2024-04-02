@@ -57,24 +57,28 @@ public class CharacterSheet {
         return this.strength;
     }
     protected void setStrength(int strength){
+        this.updateDerivatedStats();
         this.strength = strength;
     }
     protected int getDexterity(){
         return this.dexterity;
     }
     protected void setDexterity(int dexterity){
+        this.updateDerivatedStats();
         this.dexterity = dexterity;
     }
     protected int getIntelligence(){
         return this.intelligence;
     }
     protected void setIntelligence(int intelligence){
+        this.updateDerivatedStats();
         this.intelligence = intelligence;
     }
     protected int getConstitution(){
         return this.constitution;
     }
     protected void setConstitution(int constitution){
+        this.updateDerivatedStats();
         this.constitution = constitution;
     }
     protected int getWillpower(){

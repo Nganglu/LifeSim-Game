@@ -146,7 +146,7 @@ public class Body {
         if (this.physicalAge < targetAgeInDays){
             simulateGrowth(targetAgeInDays - physicalAge);
         } else {
-
+            System.out.println("Reverse aging not implemented...");
         }
     }
 
