@@ -14,7 +14,7 @@ public class Backpack extends Item implements Container, Wearable {
     private List<Item> content;
     
     private boolean isNested;
-    private boolean isCurrentlyWorn;
+    private boolean isBeingWorn;
 
     public Backpack(String name, String description, int weight, int baseVolume,int maxCapacity) {
         super(name, description, weight, baseVolume);
@@ -56,7 +56,7 @@ public class Backpack extends Item implements Container, Wearable {
     }
 
     @Override
-    public boolean isCurrentlyWorn() {
+    public boolean isBeingWorn() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'isCurrentlyWorn'");
     }
@@ -67,12 +67,12 @@ public class Backpack extends Item implements Container, Wearable {
     }
 
     @Override
-    public void setIsCurrentlyWorn(){
-        this.isCurrentlyWorn = true;
+    public void setIsBeingWorn(){
+        this.isBeingWorn = true;
     }
 
-    public void unsetIsCurrentlyWorn(){
-        this.isCurrentlyWorn = false;
+    public void unsetIsBeingWorn(){
+        this.isBeingWorn = false;
     }
 
 }

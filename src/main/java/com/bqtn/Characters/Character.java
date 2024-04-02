@@ -1,7 +1,6 @@
 package com.bqtn.Characters;
 
 import java.time.*;
-import java.util.*;
 
 import com.bqtn.Items.Item;
 
@@ -14,28 +13,24 @@ public class Character {
     private String gender;
     private LocalDate dateOfBirth;
 
-    private Map<InventorySlot,Item> inventory;
-    
-    private Body body;
     private CharacterSheet characterSheet;
+    private Body body;
+    private Inventory inventory;
 
-    private Random random;
+    private int hitPoints;
+    private int fatigue;
+    private int encumbrance; // total weight of items in grams
+
+    private boolean isUnconscious;
+
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
     public Character(String firstName,String lastName,String gender,LocalDate dateOfBirth,int physicalAgeInDays,int percentile,int strength,int dexterity,int intelligence,int health){
         this.initDetails(firstName,lastName,gender,dateOfBirth);
         this.initInventory();
-        this.initBody(physicalAgeInDays,gender,percentile);
         this.initCharacterSheet(strength, dexterity, intelligence, health);
-    }
-
-    public Character(String firstName,String lastName,String gender,LocalDate dateOfBirth,int physicalAgeInDays){
-        this.initDetails(firstName,lastName,gender,dateOfBirth);
-        this.initInventory();
-        random = new Random();
-        int percentile = (int) Math.round(random.nextGaussian() * 15 + 50);
-        percentile = (percentile > 100 || percentile < 1)?50:percentile;
-        this.body = new Body(physicalAgeInDays,gender,percentile);
+        this.initBody(physicalAgeInDays,gender,percentile);
+        this.initDerivatedStats();
     }
 
     public String toString(){
@@ -43,19 +38,7 @@ public class Character {
         "Date of Birth: " + this.dateOfBirth + "\n" +
         "Height: " + df.format(this.body.getHeight()) + "cm / Weight: " + df.format(this.body.getWeight()) + "kg\n";
     }
-    
-    public String inventoryToString(){
-        String inventoryString = "== Inventory Content ==\n\n";
-        for (InventorySlot slot : inventory.keySet()) {
-            if(inventory.get(slot) != null){
-                Item item = inventory.get(slot);
-                inventoryString += item + "\n";
-            }
-        }
-        inventoryString += "\n=======================\n";
-        return inventoryString;
-    }
-    
+
     public String bodyToString(){
         return this.body.toString();
     }
@@ -69,11 +52,7 @@ public class Character {
     }
     
     private void initInventory(){
-        this.inventory = new HashMap<>();
-        // Initialize inventory slots
-        for (InventorySlot slot : InventorySlot.values()) {
-            this.inventory.put(slot, null);
-        }
+        this.inventory = new Inventory();
     }
 
     public void initBody(int physicalAgeInDays,String gender,int percentile){
@@ -83,35 +62,25 @@ public class Character {
     public void initCharacterSheet(int strength,int dexterity,int intelligence,int health){
         this.characterSheet = new CharacterSheet(strength, dexterity, intelligence, health);
     }
-    
-    public void wearItemOnSlot(Item item, InventorySlot slot) {
-        if (item.getWearableSlot() == slot){
-            if (this.inventory.get(slot) == null){
-                this.inventory.put(slot, item);
-                item.setIsCurrentlyWorn();
-            } else {
-                System.out.println(slot + " is already occupied");
-            }
-        } else {
-            System.out.println(slot+" is not a valid slot to wear a "+item.getName()+"...");
-        }
-    }
-    
-    public void removeItemFromSlot(InventorySlot slot) {
-        Item removedItem = this.inventory.get(slot);
-        if (removedItem != null){
-            removedItem.unsetIsCurrentlyWorn();
-            this.inventory.put(slot, null);
-        }
-    }
-    
-    public Item getItemFromSlot(InventorySlot slot) {
-        return this.inventory.get(slot);
+
+    public void initDerivatedStats(){
+        this.hitPoints = this.characterSheet.getMaxHitPoints();
+        this.fatigue = this.characterSheet.getMaxFatigue();
+        this.encumbrance = 0;
+        this.isUnconscious = false;
     }
 
     public Item retrieveItemFromSlot(InventorySlot slot) {
-        this.removeItemFromSlot(slot);
-        return this.inventory.get(slot);
+        this.inventory.removeItemFromSlot(slot);
+        return this.inventory.getItemFromSlot(slot);
+    }
+
+    public Body getBody(){
+        return this.body;
+    }
+
+    public Inventory getInventory(){
+        return this.inventory;
     }
 
     public CharacterSheet getCharacterSheet(){
@@ -126,14 +95,6 @@ public class Character {
         this.growInDays(nbOfYears * 365);
     }
     
-    public LocalDate getDateOfBirth(){
-        return this.dateOfBirth;
-    }
-
-    public Body getBody(){
-        return this.body;
-    }
-
     public String getFirstName(){
         return this.firstName;
     }
@@ -141,5 +102,11 @@ public class Character {
     public String getLastName(){
         return this.lastName;
     }
+
+    public LocalDate getDateOfBirth(){
+        return this.dateOfBirth;
+    }
+
+
 
 }

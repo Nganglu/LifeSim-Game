@@ -54,17 +54,6 @@ public class World {
         this.charactersMap.put(character.getFirstName()+" "+character.getLastName(), character);
     }
     
-    public void addNewCharacter(String firstName,String lastName,String gender,LocalDate dateOfBirth){
-        if (getCharacterByName(firstName, lastName) == null){
-            period = Period.between(dateOfBirth, this.getCurrentDate());
-            int age = period.getYears()*365 + period.getMonths()*30 + period.getDays();
-
-            this.charactersMap.put(firstName+" "+lastName, new Character(firstName, lastName, gender, dateOfBirth, age));
-        } else {
-            System.out.println("Name already exists. No character created.\n");
-        }
-    }
-    
     public void removeCharacter(Character character){
         this.charactersMap.remove(character.getFirstName()+" "+character.getLastName());
 

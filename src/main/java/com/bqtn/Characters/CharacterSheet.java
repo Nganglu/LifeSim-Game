@@ -22,7 +22,7 @@ public class CharacterSheet {
 
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
-    public CharacterSheet(int strength,int dexterity,int intelligence,int health) {
+    protected CharacterSheet(int strength,int dexterity,int intelligence,int health) {
         this.setBaseStats(strength, dexterity, intelligence, health);
     }
 
@@ -36,7 +36,7 @@ public class CharacterSheet {
                 "\n  ========================";
     }
 
-    public void setBaseStats(int strength,int dexterity,int intelligence,int health) {
+    protected void setBaseStats(int strength,int dexterity,int intelligence,int health) {
         this.strength = strength;
         this.dexterity = dexterity;
         this.intelligence = intelligence;
@@ -44,7 +44,7 @@ public class CharacterSheet {
         this.updateDerivatedStats();
     }
 
-    public void updateDerivatedStats(){
+    protected void updateDerivatedStats(){
         this.maxHitPoints = this.strength;
         this.will = this.intelligence;
         this.perception = this.intelligence;
@@ -53,43 +53,43 @@ public class CharacterSheet {
         this.baseLift = 1.0 * Math.pow(this.strength,2)/10;
     }
 
-    public int getStrength(){
+    protected int getStrength(){
         return this.strength;
     }
-    public void setStrength(int strength){
+    protected void setStrength(int strength){
         this.strength = strength;
     }
-    public int getDexterity(){
+    protected int getDexterity(){
         return this.dexterity;
     }
-    public void setDexterity(int dexterity){
+    protected void setDexterity(int dexterity){
         this.dexterity = dexterity;
     }
-    public int getIntelligence(){
+    protected int getIntelligence(){
         return this.intelligence;
     }
-    public void setIntelligence(int intelligence){
+    protected void setIntelligence(int intelligence){
         this.intelligence = intelligence;
     }
-    public int getHealth(){
+    protected int getHealth(){
         return this.health;
     }
-    public void setHealth(int health){
+    protected void setHealth(int health){
         this.health = health;
     }
-    public int getWill(){
+    protected int getWill(){
         return this.will;
     }
-    public int getPerception(){
+    protected int getPerception(){
         return this.perception;
     }
-    public int getMaxFatigue(){
+    protected int getMaxFatigue(){
         return this.maxFatigue;
     }
-    public int getMaxHitPoints(){
+    protected int getMaxHitPoints(){
         return this.maxHitPoints;
     }
-    public double getBaseSpeed(){
+    protected double getBaseSpeed(){
         return this.baseSpeed;
     }
 

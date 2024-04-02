@@ -16,9 +16,14 @@ public interface ItemProperties {
         InventorySlot getWearableSlot();
         // int getThickness();
         // int getInsulation();
-        boolean isCurrentlyWorn();
-        void setIsCurrentlyWorn();
-        void unsetIsCurrentlyWorn();
+        boolean isBeingWorn();
+        void setIsBeingWorn();
+        void unsetIsBeingWorn();
+    }
+
+    public interface Equipable {
+        InventorySlot getEquipableSlot();
+        InventorySlot getEquipedSlot();
     }
 
     public interface Container {

@@ -13,12 +13,12 @@ import com.bqtn.Items.ItemTypes.Backpack;
 public class SimulationController {
     Map<String,Character> characterCatalog;
     Map<String,Item> itemCatalog;
-    EventScheduler scheduler;
-
+    
     static List<Character> activeCharacters;
     static Character selectedCharacter;
-
+    
     World world;
+    EventScheduler scheduler;
 
     public SimulationController(){
         this.itemCatalog = new HashMap<>();

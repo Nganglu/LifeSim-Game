@@ -52,11 +52,11 @@ public class Item {
         return null;
     }
 
-    public void setIsCurrentlyWorn(){
+    public void setIsBeingWorn(){
         System.out.println("Item is not wearable");
     }
 
-    public void unsetIsCurrentlyWorn(){
+    public void unsetIsBeingWorn(){
         System.out.println("Item is not wearable");
     }
     

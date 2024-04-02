@@ -24,7 +24,7 @@ public class Body {
     private static final double AVERAGE_BMI = 22;
     private static final double BASE_GROWTH = 5.0/365;
 
-    public Body(int physicalAgeInDays,String gender,int percentile){
+    protected Body(int physicalAgeInDays,String gender,int percentile){
         this.gender = gender;
         this.height = HEIGHT_AT_BIRTH;
         this.weight = WEIGHT_AT_BIRTH;
@@ -41,7 +41,7 @@ public class Body {
         "Body Age: "+df.format(1.0*this.physicalAge/365)+" y.o.  Growth Factor: "+df.format(1.0*this.growthFactor)+"  Spurt Days: "+this.growthSpurtDays+"\n";
     }
     
-    public void simulateGrowth(int nbOfDays){
+    protected void simulateGrowth(int nbOfDays){
         int daysToSim = Math.abs(nbOfDays);
         for (int i = 0; i < daysToSim; i++) {
             double growthFactorChange = 0.0;
@@ -110,11 +110,11 @@ public class Body {
         this.weight = this.calculateIdealWeight();
     }
     
-    public double calculateIdealWeight(){
+    protected double calculateIdealWeight(){
         return calculateBMIWeight(this.BMI,this.gender);
     }
 
-    public double calculateBMIWeight(double bodyMassIndex,String gender){
+    protected double calculateBMIWeight(double bodyMassIndex,String gender){
         double targetWeight = bodyMassIndex * Math.pow(this.height/100,2);
         if (this.physicalAge >= 15*365){
             switch (gender.toLowerCase()) {
@@ -133,7 +133,7 @@ public class Body {
         return targetWeight;
     }
 
-    public void setSoftcapFromPercentile(){
+    protected void setSoftcapFromPercentile(){
         //NOTE: Percentile of 5 should return 1.2, 50 should return 1.6, 95 should return 1.8
         // following -> f(x) = ax**2 + bx + c, where x=percentile and y=softcap
         double a = -0.0000493827160494;
@@ -142,7 +142,7 @@ public class Body {
         this.growthSoftcap = Double.valueOf(df.format(a*Math.pow(this.percentile,2)+b*this.percentile+c));
     }
 
-    public void updateBody(int targetAgeInDays){
+    protected void updateBody(int targetAgeInDays){
         if (this.physicalAge < targetAgeInDays){
             simulateGrowth(targetAgeInDays - physicalAge);
         } else {
@@ -150,46 +150,46 @@ public class Body {
         }
     }
 
-    public double getHeight(){
+    protected double getHeight(){
         return this.height;
     }
 
-    public void setHeight(double height){
+    protected void setHeight(double height){
         this.height = height;
     }
 
-    public double getWeight(){
+    protected double getWeight(){
         return this.weight;
     }
 
-    public void setWeight(double weight){
+    protected void setWeight(double weight){
         this.weight = weight;
     }
 
-    public String getGender(){
+    protected String getGender(){
         return this.gender;
     }
 
-    public void setGender(String gender){
+    protected void setGender(String gender){
         this.gender = gender;
     }
 
-    public double getGrowthSoftCap(){
+    protected double getGrowthSoftCap(){
         return this.growthSoftcap;
     }
 
-    public void setPercentile(int percentile){
+    protected void setPercentile(int percentile){
         if (percentile > 0 && percentile <= 100){
             this.percentile = percentile;
             this.setSoftcapFromPercentile();
         }
     }
 
-    public int getPercentile(){
+    protected int getPercentile(){
         return this.percentile;
     }
 
-    public int getPhysicalAge(){
+    protected int getPhysicalAge(){
         return this.physicalAge;
     }
 
