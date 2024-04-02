@@ -14,8 +14,7 @@ public class Backpack extends Item implements Container, Wearable {
     private List<Item> content;
     
     private boolean isNested;
-
-    static final InventorySlot wearableSlot = InventorySlot.BACKPACK;
+    private boolean isCurrentlyWorn;
 
     public Backpack(String name, String description, int weight, int baseVolume,int maxCapacity) {
         super(name, description, weight, baseVolume);
@@ -27,54 +26,8 @@ public class Backpack extends Item implements Container, Wearable {
 
     public String toString(){
         return "Name: "+this.getName()+"  Description: "+this.getDescription()+"\n"+
-                "Items: "+this.weight+"g / Total: "+(this.weight+this.baseWeight)+"g\n"+
-                "Volume: "+this.getContentVolume()+"/"+this.maxCapacity;
-    }
-
-    public void addItem(Item item) {
-        if (!this.isNested){
-
-            if (item.getVolume() <= this.maxCapacity - this.volume){
-                this.content.add(item);
-                this.volume += item.getVolume();
-                this.weight += item.getWeight();
-            }else{
-                System.out.println("Item can't fit.");
-            }
-        } else {
-            System.out.println("Item is nested. Remove from container first.");
-        }
-    }
-    
-    public void removeItem(Item item) {
-        if (!this.isNested){
-
-            if (this.content.contains(item)){
-                this.content.remove(item);
-                this.volume -= item.getVolume();
-                this.weight -= item.getWeight();
-            } else {
-                System.out.println("No item to remove.\n");
-            }
-        } else {
-            System.out.println("Item is nested. Remove from container first.\n");
-        }
-    }
-
-    public int getContentVolume(){
-        int volume = 0;
-        for (Item item : this.content) {
-            volume += item.getVolume();
-        }
-        return volume;
-    }
-
-    public int getContentWeight(){
-        int weight = 0;
-        for (Item item : this.content) {
-            weight += item.getWeight();
-        }
-        return weight;
+                "Content Weight: "+this.weight+"g\n"+
+                "Volume: "+this.getContentVolume()+"/"+this.maxCapacity+"ml";
     }
     
     @Override
@@ -84,12 +37,7 @@ public class Backpack extends Item implements Container, Wearable {
 
     @Override
     public List<Item> getContent() {
-        return new ArrayList<>(this.content);
-    }
-    
-    @Override
-    public int getCapacityLeft() {
-        return this.maxCapacity - getContentVolume();
+        return this.content;
     }
 
     @Override
@@ -108,18 +56,6 @@ public class Backpack extends Item implements Container, Wearable {
     }
 
     @Override
-    public int getThickness() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getThickness'");
-    }
-
-    @Override
-    public int getInsulation() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getInsulation'");
-    }
-
-    @Override
     public boolean isCurrentlyWorn() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'isCurrentlyWorn'");
@@ -127,12 +63,16 @@ public class Backpack extends Item implements Container, Wearable {
 
     @Override
     public InventorySlot getWearableSlot() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getWearableSlot'");
+        return InventorySlot.BACKPACK;
     }
 
+    @Override
+    public void setIsCurrentlyWorn(){
+        this.isCurrentlyWorn = true;
+    }
 
-
-
+    public void unsetIsCurrentlyWorn(){
+        this.isCurrentlyWorn = false;
+    }
 
 }

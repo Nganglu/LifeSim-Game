@@ -9,8 +9,12 @@ public class World {
 
     private LocalDate initialDate;
     private LocalDateTime currentTime;
+    
+    private Map<String,Character> charactersMap;
 
-    private Map<String,Character> characterMap;
+    // Map<String,Shop> shopsMap;
+    // Economy economy;
+    // Bank bank;
 
     private static Period period;
 
@@ -18,7 +22,7 @@ public class World {
         this.initialDate = LocalDate.of(currentYear,currentMonth,currentDay);
         this.currentTime = LocalDateTime.of(currentYear,currentMonth,currentDay,0,0,0);
 
-        this.characterMap = new HashMap<>();
+        this.charactersMap = new HashMap<>();
     }
 
     private void advanceTime(int years, int months, int days, int hours, int minutes, int seconds){
@@ -47,7 +51,7 @@ public class World {
     }
     
     public void addCharacter(Character character){
-        this.characterMap.put(character.getFirstName()+" "+character.getLastName(), character);
+        this.charactersMap.put(character.getFirstName()+" "+character.getLastName(), character);
     }
     
     public void addNewCharacter(String firstName,String lastName,String gender,LocalDate dateOfBirth){
@@ -55,19 +59,19 @@ public class World {
             period = Period.between(dateOfBirth, this.getCurrentDate());
             int age = period.getYears()*365 + period.getMonths()*30 + period.getDays();
 
-            this.characterMap.put(firstName+" "+lastName, new Character(firstName, lastName, gender, dateOfBirth, age));
+            this.charactersMap.put(firstName+" "+lastName, new Character(firstName, lastName, gender, dateOfBirth, age));
         } else {
             System.out.println("Name already exists. No character created.\n");
         }
     }
     
     public void removeCharacter(Character character){
-        this.characterMap.remove(character.getFirstName()+" "+character.getLastName());
+        this.charactersMap.remove(character.getFirstName()+" "+character.getLastName());
 
     }
 
     public Character getCharacterByName(String firstName,String lastName){
-        return characterMap.get(firstName+" "+lastName);
+        return charactersMap.get(firstName+" "+lastName);
     }
     
     public int getCharacterAge(Character character){

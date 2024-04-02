@@ -1,15 +1,20 @@
-SIMULATION
-    *EVENT SYSTEM
-        -Establishing event format and queueing
-        -EventType definitions
-        -Syncing SimulationManager and World
+
+ITEMS
+    Define more item types and add value.
+        Add money item.
+
+CHARACTER
+    Add money.
+
+TRADE
+    simple first. Money to item. If can afford, get item.. lose money.
+        two Character, List<Item> offered + requested, moneyOffered + requested;
+
+SIMULATION CONTROLLER
     
-    -Daily growth algorithm for age and biological sex
 
-
-BODY
-    -Change units -> age (from year to day), weight (from kg to g), height (from m to cm)
-    -implementing health & energy
-        -Refining body with body parts
-            -derivating part size (height and weight) from body
-            -implementing health for bodyPart
+SIMULATION
+            *EVENT SYSTEM
+                -Establishing event format and queueing
+                -EventType definitions
+                -Syncing SimulationController and World time

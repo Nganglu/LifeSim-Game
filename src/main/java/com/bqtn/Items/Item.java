@@ -1,5 +1,7 @@
 package com.bqtn.Items;
 
+import com.bqtn.Characters.InventorySlot;
+
 public class Item {
     private String name;
     private String description;
@@ -26,8 +28,16 @@ public class Item {
         return this.weight;
     }
 
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
     public int getVolume() {
         return this.volume;
+    }
+
+    public void setVolume(int volume) {
+        this.volume = volume;
     }
 
     public int getCondition() {
@@ -36,6 +46,18 @@ public class Item {
 
     public boolean isContainer() {
         return this.isContainer();
+    }
+
+    public InventorySlot getWearableSlot(){
+        return null;
+    }
+
+    public void setIsCurrentlyWorn(){
+        System.out.println("Item is not wearable");
+    }
+
+    public void unsetIsCurrentlyWorn(){
+        System.out.println("Item is not wearable");
     }
     
 }

@@ -189,4 +189,8 @@ public class Body {
         return this.percentile;
     }
 
+    public int getPhysicalAge(){
+        return this.physicalAge;
+    }
+
 }
