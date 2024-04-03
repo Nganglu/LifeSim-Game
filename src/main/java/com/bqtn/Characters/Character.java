@@ -16,12 +16,12 @@ public class Character {
     private CharacterSheet characterSheet;
     private Body body;
     private Inventory inventory;
+    private CharacterState currentState;
 
     private int health;
     private int energy;
     private int encumbrance; // total weight of items in grams
 
-    private boolean isUnconscious;
 
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
@@ -31,6 +31,7 @@ public class Character {
         this.initCharacterSheet(strength, dexterity, intelligence, health);
         this.initBody(physicalAgeInDays,gender,percentile);
         this.initDerivatedStats();
+        this.currentState = CharacterState.IDLE;
     }
 
     public String toString(){
@@ -67,7 +68,6 @@ public class Character {
         this.health = this.characterSheet.getMaxHealth();
         this.energy = this.characterSheet.getMaxEnergy();
         this.encumbrance = 0;
-        this.isUnconscious = false;
     }
 
     public Item retrieveItemFromSlot(InventorySlot slot) {
@@ -105,6 +105,10 @@ public class Character {
 
     public LocalDate getDateOfBirth(){
         return this.dateOfBirth;
+    }
+
+    public CharacterState getState(){
+        return this.currentState;
     }
 
     // Character Sheet

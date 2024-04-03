@@ -4,21 +4,25 @@ import java.util.Collections;
 import java.util.List;
 
 import com.bqtn.Characters.Character;
+import com.bqtn.Characters.CharacterState;
 
 public class Combat {
-    private List<Character> instigators;
-    private List<Character> opponents;
+    private Character instigator;
+    private Character opponent;
 
     private List<Character> turnOrder;
     private int currentTurn;
 
+    private int round;
     private boolean isOver;
 
-    public Combat(List<Character> intigators,List<Character> opponents){
-        this.instigators = new ArrayList<>(intigators);
-        this.opponents = new ArrayList<>(opponents);
+    public Combat(Character intigator,Character opponent){
+        this.instigator = intigator;
+        this.opponent = opponent;
         this.turnOrder = new ArrayList<>();
         this.updateInitiative();
+        this.currentTurn = 0;
+        this.round = 1;
     }
 
     private void updateInitiative(){
@@ -35,6 +39,22 @@ public class Combat {
             }
             return speedComparison;
         });
+    }
+
+    public List<Character> getTurnOrderList(){
+        return this.turnOrder;
+    }
+
+    public void nextTurn(){
+        this.currentTurn++;
+        if (this.currentTurn >= this.turnOrder.size()) {
+            this.currentTurn = 0;
+            this.round++;
+        }
+    }
+
+    public CharacterState getCurrentFighterState(){
+        return this.turnOrder.get(this.currentTurn).getState();
     }
 
 }

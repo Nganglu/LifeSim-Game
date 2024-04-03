@@ -11,6 +11,8 @@ import com.bqtn.Items.Item;
 import com.bqtn.Items.ItemTypes.Backpack;
 import com.bqtn.World.World;
 
+import java.util.Random;
+
 public class SimulationController {
     Map<String,Character> characterCatalog;
     Map<String,Item> itemCatalog;
@@ -20,11 +22,13 @@ public class SimulationController {
     
     World world;
     EventScheduler scheduler;
+    static Random random;
 
     public SimulationController(){
         this.itemCatalog = new HashMap<>();
         this.characterCatalog = new HashMap<>();
         SimulationController.activeCharacters = new ArrayList<>();
+        this.random = new Random();
     }
 
     void selectWorld(World world){
@@ -70,6 +74,9 @@ public class SimulationController {
         System.out.println(
             alter.getCharacterSheet().toString()
         );
+
+        Random random = new Random();
+        GameMaster gm = new GameMaster(random);
 
     }
 }
