@@ -1,8 +1,8 @@
-package com.bqtn.Items;
+package com.bqtn.items;
 
 import java.util.List;
 
-import com.bqtn.Characters.InventorySlot;
+import com.bqtn.characters.InventorySlot;
 
 public interface ItemProperties {
 

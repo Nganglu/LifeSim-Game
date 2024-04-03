@@ -1,8 +1,8 @@
-package com.bqtn.Characters;
+package com.bqtn.characters;
 
 import java.time.*;
 
-import com.bqtn.Items.Item;
+import com.bqtn.items.Item;
 
 import java.text.DecimalFormat;
 
@@ -103,8 +103,16 @@ public class Character {
         return this.lastName;
     }
 
+    public String getName(){
+        return this.firstName+" "+this.lastName;
+    }
+
     public LocalDate getDateOfBirth(){
         return this.dateOfBirth;
+    }
+
+    public int getPhysicalAge(){
+        return this.body.getPhysicalAge();
     }
 
     public CharacterState getState(){
@@ -120,5 +128,6 @@ public class Character {
     public double getBaseSpeed(){
         return this.characterSheet.getBaseSpeed();
     }
+    
 
 }

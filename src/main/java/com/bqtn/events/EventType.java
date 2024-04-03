@@ -1,4 +1,4 @@
-package com.bqtn.Events;
+package com.bqtn.events;
 
 public enum EventType {
     TRADE() {

@@ -1,4 +1,4 @@
-package com.bqtn.Characters;
+package com.bqtn.characters;
 
 import java.text.DecimalFormat;
 

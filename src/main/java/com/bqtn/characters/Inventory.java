@@ -1,7 +1,8 @@
-package com.bqtn.Characters;
-import com.bqtn.Items.Item;
-
+package com.bqtn.characters;
 import java.util.Map;
+
+import com.bqtn.items.Item;
+
 import java.util.HashMap;
 
 public class Inventory {

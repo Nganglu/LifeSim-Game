@@ -1,4 +1,4 @@
-package com.bqtn.Events;
+package com.bqtn.events;
 
 import java.time.*;
 

@@ -1,4 +1,4 @@
-package com.bqtn;
+package com.bqtn.utils;
 
 import java.util.Random;
 

@@ -1,10 +1,10 @@
-package com.bqtn;
+package com.bqtn.controllers;
 
 import java.util.List;
 
-import com.bqtn.Items.Item;
+import com.bqtn.items.Item;
 
-public class Trade {
+public class TradeController {
     Character proposer;
     Character recipient;
 
@@ -14,7 +14,7 @@ public class Trade {
     List<Item> wantedItems;
     int wantedMoney;
 
-    public Trade(List<Item> proposedItems,int proposedMoney,List<Item> wantedItems,int wantedMoney){
+    public TradeController(List<Item> proposedItems,int proposedMoney,List<Item> wantedItems,int wantedMoney){
         this.proposedItems = proposedItems;
         this.proposedMoney = proposedMoney;
         this.wantedItems = wantedItems;

@@ -1,15 +1,16 @@
-package com.bqtn;
+package com.bqtn.controllers;
 import java.time.*;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
-import com.bqtn.Characters.Character;
-import com.bqtn.Events.EventScheduler;
-import com.bqtn.Items.Item;
-import com.bqtn.Items.ItemTypes.Backpack;
-import com.bqtn.World.World;
+import com.bqtn.characters.Character;
+import com.bqtn.events.EventScheduler;
+import com.bqtn.items.Item;
+import com.bqtn.items.ItemTypes.Backpack;
+import com.bqtn.utils.GameMaster;
+import com.bqtn.world.World;
 
 import java.util.Random;
 

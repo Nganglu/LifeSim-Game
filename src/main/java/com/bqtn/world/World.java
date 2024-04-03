@@ -1,8 +1,8 @@
-package com.bqtn.World;
-import com.bqtn.Characters.Character;
-
+package com.bqtn.world;
 import java.time.*;
 import java.util.*;
+
+import com.bqtn.characters.Character;
 
 
 public class World {
@@ -51,6 +51,13 @@ public class World {
     }
     
     public void addCharacter(Character character){
+        if (character.getPhysicalAge() == 0){
+            try {
+                character.growInDays(this.getCharacterAge(character));
+            } catch (Exception e) {
+                System.out.println(e+" character body has not been initialized.");
+            }
+        }
         this.charactersMap.put(character.getFirstName()+" "+character.getLastName(), character);
     }
     

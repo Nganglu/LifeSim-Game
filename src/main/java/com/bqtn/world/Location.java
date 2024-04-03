@@ -1,4 +1,4 @@
-package com.bqtn.World;
+package com.bqtn.world;
 
 public class Location {
     

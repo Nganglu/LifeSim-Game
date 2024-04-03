@@ -1,6 +1,6 @@
-package com.bqtn.Items;
+package com.bqtn.items;
 
-import com.bqtn.Characters.InventorySlot;
+import com.bqtn.characters.InventorySlot;
 
 public class Item {
     private String name;

@@ -1,12 +1,14 @@
-package com.bqtn;
+package com.bqtn.controllers;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.bqtn.Characters.Character;
-import com.bqtn.Characters.CharacterState;
+import com.bqtn.characters.Character;
+import com.bqtn.characters.CharacterState;
 
-public class Combat {
+import java.io.*;
+
+public class CombatController {
     private Character instigator;
     private Character opponent;
 
@@ -16,7 +18,7 @@ public class Combat {
     private int round;
     private boolean isOver;
 
-    public Combat(Character intigator,Character opponent){
+    public CombatController(Character intigator,Character opponent){
         this.instigator = intigator;
         this.opponent = opponent;
         this.turnOrder = new ArrayList<>();
@@ -41,6 +43,27 @@ public class Combat {
         });
     }
 
+    // public void startConsoleCombat() {
+    //     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+    //     System.out.println("\n============\n"+
+    //                         this.instigator.getName()+" vs "+this.opponent.getName()+
+    //                         "\n============");
+    //     do{
+    //         Character currentFighter = this.getCurrentFighter();
+    //         System.out.println("Round "+this.round+"  |  Turn: "+currentFighter.getName());
+
+    //         System.out.println("Attacking "+this.getOpponent().getName()+"...");
+            
+
+    //     }while (this.instigator.getState() != CharacterState.UNCONSCIOUS || this.opponent.getState() != CharacterState.UNCONSCIOUS);
+
+    // }
+
+    public Character getCurrentFighter(){
+        return this.turnOrder.get(this.currentTurn);
+    }
+
     public List<Character> getTurnOrderList(){
         return this.turnOrder;
     }
@@ -55,6 +78,14 @@ public class Combat {
 
     public CharacterState getCurrentFighterState(){
         return this.turnOrder.get(this.currentTurn).getState();
+    }
+
+    public Character getOpponent(){
+        Character currentFighter = getCurrentFighter();
+        if (currentFighter == this.instigator){
+            return this.opponent;
+        }
+        return this.instigator;
     }
 
 }

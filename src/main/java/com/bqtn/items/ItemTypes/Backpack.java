@@ -1,10 +1,10 @@
-package com.bqtn.Items.ItemTypes;
+package com.bqtn.items.ItemTypes;
 import java.util.List;
 import java.util.ArrayList;
 
-import com.bqtn.Characters.InventorySlot;
-import com.bqtn.Items.Item;
-import com.bqtn.Items.ItemProperties.*;
+import com.bqtn.characters.InventorySlot;
+import com.bqtn.items.Item;
+import com.bqtn.items.ItemProperties.*;
 
 public class Backpack extends Item implements Container, Wearable {
 
