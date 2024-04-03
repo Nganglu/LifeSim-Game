@@ -2,6 +2,7 @@ package com.bqtn.world;
 
 public enum LocationType {
     GENERIC("Generic"),
+    OUTDOOR("Outdoor"),
     HOUSE("House"),
     SHOP("Shop");
 

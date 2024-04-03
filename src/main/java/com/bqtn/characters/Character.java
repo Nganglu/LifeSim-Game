@@ -8,6 +8,8 @@ import java.text.DecimalFormat;
 
 public class Character {
 
+    //?? Character extends Entity??
+    //?? private Attributes attributes ??
     private String firstName;
     private String lastName;
     private String gender;
