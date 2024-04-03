@@ -115,7 +115,7 @@ public class Body {
     }
 
     protected double calculateBMIWeight(double bodyMassIndex,String gender){
-        double targetWeight = bodyMassIndex * Math.pow(this.height/100,2);
+        double targetWeight = bodyMassIndex *(this.height/100.2)*(this.height/100.2);
         if (this.physicalAge >= 15*365){
             switch (gender.toLowerCase()) {
                 case "male":
@@ -128,7 +128,7 @@ public class Body {
                     break;
             }
         } else {
-            targetWeight = Math.pow(this.height,3)/78000;
+            targetWeight = this.height*this.height*this.height/78000;
         }
         return targetWeight;
     }
@@ -139,7 +139,7 @@ public class Body {
         double a = -0.0000493827160494;
         double b = 0.0116049382716;
         double c = 1.14320987654;
-        this.growthSoftcap = Double.valueOf(df.format(a*Math.pow(this.percentile,2)+b*this.percentile+c));
+        this.growthSoftcap = Double.valueOf(df.format(a*this.percentile*this.percentile+b*this.percentile+c));
     }
 
     protected void updateBody(int targetAgeInDays){
