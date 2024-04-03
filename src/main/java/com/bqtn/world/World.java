@@ -7,18 +7,23 @@ import com.bqtn.characters.Character;
 
 public class World {
 
+    private String worldName;
+    private String worldDescription;
+
     private LocalDate initialDate;
     private LocalDateTime currentTime;
     
     private Map<String,Character> charactersMap;
 
-    // Map<String,Shop> shopsMap;
+    // Map<String,Location> locationMap;
     // Economy economy;
     // Bank bank;
 
     private static Period period;
 
-    public World(int currentYear,int currentMonth,int currentDay){
+    public World(String name,String description,int currentYear,int currentMonth,int currentDay){
+        this.worldName = name;
+        this.worldDescription = description;
         this.initialDate = LocalDate.of(currentYear,currentMonth,currentDay);
         this.currentTime = LocalDateTime.of(currentYear,currentMonth,currentDay,0,0,0);
 

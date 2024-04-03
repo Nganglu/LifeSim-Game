@@ -9,11 +9,14 @@ public class Item {
     protected int volume; // in ml or cm3
     private int condition;
 
-    public Item(String name,String description,int weight,int volume){
+    private int baseValue;
+
+    public Item(String name,String description,int weight,int volume,int baseValue){
         this.name = name;
         this.description = description;
         this.weight = weight;
         this.volume = volume;
+        this.baseValue = baseValue;
     }
 
     public String getName() {
@@ -42,6 +45,14 @@ public class Item {
 
     public int getCondition() {
         return this.condition;
+    }
+
+    public void getCondition(int condition) {
+        this.condition = condition;
+    }
+
+    public int getBaseValue() {
+        return this.baseValue;
     }
 
     public boolean isContainer() {

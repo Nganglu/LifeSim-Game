@@ -2,20 +2,24 @@ package com.bqtn.characters;
 import java.util.Map;
 
 import com.bqtn.items.Item;
+import com.bqtn.items.ItemTypes.Backpack;
 
 import java.util.HashMap;
 
 public class Inventory {
     
     private int money; // in cents
-    private Map<InventorySlot,Item> inventorySlot;
+    private Map<InventorySlot,Item> inventoryMap;
+    private int totalWeight;
+    private int itemsValue;
 
     protected Inventory(int money){
         this.money = money;
-        this.inventorySlot = new HashMap<>();
+        this.inventoryMap = new HashMap<>();
         for (InventorySlot slot : InventorySlot.values()) {
-            this.inventorySlot.put(slot, null);
+            this.inventoryMap.put(slot, null);
         }
+        this.totalWeight = 0;
     }
 
     protected Inventory(){
@@ -24,9 +28,9 @@ public class Inventory {
 
     public String toString(){
         String inventoryString = "== Inventory Content ==\n\n";
-        for (InventorySlot slot : inventorySlot.keySet()) {
-            if(inventorySlot.get(slot) != null){
-                Item item = inventorySlot.get(slot);
+        for (InventorySlot slot : inventoryMap.keySet()) {
+            if(inventoryMap.get(slot) != null){
+                Item item = inventoryMap.get(slot);
                 inventoryString += item + "\n";
             }
         }
@@ -36,8 +40,10 @@ public class Inventory {
 
     protected void wearItemOnSlot(Item item, InventorySlot slot) {
         if (item.getWearableSlot() == slot){
-            if (this.inventorySlot.get(slot) == null){
-                this.inventorySlot.put(slot, item);
+            if (this.inventoryMap.get(slot) == null){
+                this.inventoryMap.put(slot, item);
+                this.totalWeight += item.getWeight();
+                this.itemsValue += item.getBaseValue();
                 item.setIsBeingWorn();
             } else {
                 System.out.println(slot + " is already occupied");
@@ -48,20 +54,17 @@ public class Inventory {
     }
 
     protected void removeItemFromSlot(InventorySlot slot) {
-        Item removedItem = this.inventorySlot.get(slot);
+        Item removedItem = this.inventoryMap.get(slot);
         if (removedItem != null){
             removedItem.unsetIsBeingWorn();
-            this.inventorySlot.put(slot, null);
+            this.totalWeight -= removedItem.getWeight();
+            this.itemsValue -= removedItem.getBaseValue();
+            this.inventoryMap.put(slot, null);
         }
     }
 
     protected Item getItemFromSlot(InventorySlot slot) {
-        return this.inventorySlot.get(slot);
-    }
-
-    protected Item retrieveItemFromSlot(InventorySlot slot) {
-        this.removeItemFromSlot(slot);
-        return this.inventorySlot.get(slot);
+        return this.inventoryMap.get(slot);
     }
 
     protected int getMoney(){
@@ -74,5 +77,32 @@ public class Inventory {
 
     protected void changeMoneyBy(int money){
         this.money += money;
+    }
+
+    protected void updateTotalWeight(){
+        int totalWeight = 0;
+        for (InventorySlot slot : InventorySlot.values()) {
+            totalWeight += this.inventoryMap.get(slot).getWeight();
+        }
+        this.totalWeight = totalWeight;
+    }
+
+    protected int getTotalWeight(){
+        return this.totalWeight;
+    }
+
+    protected void updateTotalItemsValue(){
+        int itemsValue = 0;
+        for (InventorySlot slot : InventorySlot.values()) {
+            itemsValue += this.inventoryMap.get(slot).getBaseValue();
+            if (slot.equals(InventorySlot.BACKPACK)){
+                itemsValue += ((Backpack) this.inventoryMap.get(slot)).getTotalValue();
+            }
+        }
+        this.itemsValue = itemsValue;
+    }
+
+    protected int getTotalItemsValue(){
+        return this.itemsValue;
     }
 }

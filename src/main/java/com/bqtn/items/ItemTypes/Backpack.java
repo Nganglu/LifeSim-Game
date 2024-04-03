@@ -12,12 +12,13 @@ public class Backpack extends Item implements Container, Wearable {
     private int baseWeight;
     
     private List<Item> content;
+    private int contentValue;
     
     private boolean isNested;
     private boolean isBeingWorn;
 
-    public Backpack(String name, String description, int weight, int baseVolume,int maxCapacity) {
-        super(name, description, weight, baseVolume);
+    public Backpack(String name, String description, int weight, int baseVolume,int maxCapacity,int baseValue) {
+        super(name,description,weight,baseVolume,baseValue);
         this.content = new ArrayList<>();
         this.maxCapacity = maxCapacity;
         this.baseWeight = weight;
@@ -38,6 +39,19 @@ public class Backpack extends Item implements Container, Wearable {
     @Override
     public List<Item> getContent() {
         return this.content;
+    }
+
+    @Override
+    public int getContentValue(){
+        int contentValue = 0;
+        for (Item item : content) {
+            contentValue += item.getBaseValue();
+        }
+        return contentValue;
+    }
+
+    public int getTotalValue(){
+        return this.getContentValue() + this.getBaseValue();
     }
 
     @Override

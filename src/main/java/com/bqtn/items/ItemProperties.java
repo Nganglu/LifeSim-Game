@@ -29,6 +29,7 @@ public interface ItemProperties {
     public interface Container {
         boolean isNested();
         List<Item> getContent();
+        int getContentValue();
         int getBaseWeight();
         
         int getCapacityMax();
