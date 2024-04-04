@@ -8,38 +8,34 @@ import java.text.DecimalFormat;
 
 public class Character {
 
-    //?? Character extends Entity??
+    //?? Character extends Entity ??
     //?? private Attributes attributes ??
-    private String firstName;
     private String lastName;
+    private String firstName;
     private String gender;
     private LocalDate dateOfBirth;
-
-    private CharacterSheet characterSheet;
-    private Body body;
-    private Inventory inventory;
-    private CharacterState currentState;
-
     private int health;
     private int energy;
     private int encumbrance; // total weight of items in grams
 
+    private Stats stats;
+    private Body body;
+    private Inventory inventory;
 
-    private static final DecimalFormat df = new DecimalFormat("0.00");
+    private CharacterState currentState;
 
-    public Character(String firstName,String lastName,String gender,LocalDate dateOfBirth,int physicalAgeInDays,int percentile,int strength,int dexterity,int intelligence,int health){
-        this.initDetails(firstName,lastName,gender,dateOfBirth);
+    public Character(String lastName,String firstName,String gender,LocalDate dateOfBirth,int physicalAgeInDays,int percentile,int strength,int dexterity,int intelligence,int constitution){
+        this.initDetails(lastName,firstName,gender,dateOfBirth);
         this.initInventory();
-        this.initCharacterSheet(strength, dexterity, intelligence, health);
+        this.initCharacterSheet(strength, dexterity, intelligence, constitution);
         this.initBody(physicalAgeInDays,gender,percentile);
         this.initDerivatedStats();
         this.currentState = CharacterState.IDLE;
     }
 
     public String toString(){
-        return this.firstName + " " + this.lastName + " (" + this.gender.toUpperCase() + ")\n" +
-        "Date of Birth: " + this.dateOfBirth + "\n" +
-        "Height: " + df.format(this.body.getHeight()) + "cm / Weight: " + df.format(this.body.getWeight()) + "kg\n";
+        return this.getFullName() + " (" + this.gender.toUpperCase() + ")\n" +
+        "Date of Birth: " + this.dateOfBirth + "\n" + getBody()+getStats()+getInventory();
     }
 
     public String bodyToString(){
@@ -47,9 +43,9 @@ public class Character {
     }
 
     // Initialization methods
-    private void initDetails(String firstName,String lastName,String gender,LocalDate dateOfBirth){
-        this.firstName = firstName;
+    private void initDetails(String lastName,String firstName,String gender,LocalDate dateOfBirth){
         this.lastName = lastName;
+        this.firstName = firstName;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
     }
@@ -62,19 +58,22 @@ public class Character {
         this.body = new Body(physicalAgeInDays,gender,percentile);
     }
 
-    public void initCharacterSheet(int strength,int dexterity,int intelligence,int health){
-        this.characterSheet = new CharacterSheet(strength, dexterity, intelligence, health);
+    public void initCharacterSheet(int strength,int dexterity,int intelligence,int constitution){
+        this.stats = new Stats(strength, dexterity, intelligence, constitution);
     }
 
     public void initDerivatedStats(){
-        this.health = this.characterSheet.getMaxHealth();
-        this.energy = this.characterSheet.getMaxEnergy();
+        this.health = this.stats.getMaxHealth();
+        this.energy = this.stats.getMaxEnergy();
         this.encumbrance = 0;
     }
 
-    public Item retrieveItemFromSlot(InventorySlot slot) {
+    public void wearItemOnSlot(Item item, InventorySlot slot) {
+        this.inventory.wearItemOnSlot(item, slot);
+    }
+
+    protected void removeItemFromSlot(InventorySlot slot) {
         this.inventory.removeItemFromSlot(slot);
-        return this.inventory.getItemFromSlot(slot);
     }
 
     public Body getBody(){
@@ -85,8 +84,8 @@ public class Character {
         return this.inventory;
     }
 
-    public CharacterSheet getCharacterSheet(){
-        return this.characterSheet;
+    public Stats getStats(){
+        return this.stats;
     }
     
     public void growInDays(int nbOfDays){
@@ -97,15 +96,15 @@ public class Character {
         this.growInDays(nbOfYears * 365);
     }
     
-    public String getFirstName(){
-        return this.firstName;
-    }
-
     public String getLastName(){
         return this.lastName;
     }
 
-    public String getName(){
+    public String getFirstName(){
+        return this.firstName;
+    }
+
+    public String getFullName(){
         return this.firstName+" "+this.lastName;
     }
 
@@ -121,14 +120,31 @@ public class Character {
         return this.currentState;
     }
 
+    public String getGender(){
+        return this.gender;
+    }
+
+    public int getPercentile(){
+        return this.body.getPercentile();
+    }
+
     // Character Sheet
 
+    public int getStrength(){
+        return this.stats.getDexterity();
+    }
     public int getDexterity(){
-        return this.characterSheet.getDexterity();
+        return this.stats.getDexterity();
+    }
+    public int getIntelligence(){
+        return this.stats.getIntelligence();
+    }
+    public int getConstitution(){
+        return this.stats.getConstitution();
     }
 
     public double getBaseSpeed(){
-        return this.characterSheet.getBaseSpeed();
+        return this.stats.getBaseSpeed();
     }
     
 

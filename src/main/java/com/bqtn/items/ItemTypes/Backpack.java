@@ -89,4 +89,17 @@ public class Backpack extends Item implements Container, Wearable {
         this.isBeingWorn = false;
     }
 
+    public boolean canWearOnSlot(InventorySlot slot){
+        System.out.println(slot.toString());
+        switch (slot.toString().toLowerCase()) {
+            case "right hand":
+            case "left hand":
+            case "both hands":
+            case "backpack":
+                return true;
+            default:
+                return false;
+        }
+    }
+
 }

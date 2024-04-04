@@ -19,7 +19,7 @@ public enum InventorySlot {
         this.slotName = slotName;
     }
 
-    public String getName() {
+    public String toString() {
         return slotName;
     }
 }

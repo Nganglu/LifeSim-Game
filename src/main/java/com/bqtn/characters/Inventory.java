@@ -27,19 +27,20 @@ public class Inventory {
     }
 
     public String toString(){
-        String inventoryString = "== Inventory Content ==\n\n";
+        String inventoryString = "    >=< Inventory Content >=<\n\n";
         for (InventorySlot slot : inventoryMap.keySet()) {
             if(inventoryMap.get(slot) != null){
                 Item item = inventoryMap.get(slot);
-                inventoryString += item + "\n";
+                inventoryString += "==> "+slot+" <==\n"+
+                                    item.getName() + "\n\n";
             }
         }
-        inventoryString += "\n-----------------------\n";
+        inventoryString += "-----------------------\n";
         return inventoryString;
     }
 
     protected void wearItemOnSlot(Item item, InventorySlot slot) {
-        if (item.getWearableSlot() == slot){
+        if (item.canWearOnSlot(slot)){
             if (this.inventoryMap.get(slot) == null){
                 this.inventoryMap.put(slot, item);
                 this.totalWeight += item.getWeight();

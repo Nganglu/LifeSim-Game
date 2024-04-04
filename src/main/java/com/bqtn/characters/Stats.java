@@ -2,7 +2,7 @@ package com.bqtn.characters;
 
 import java.text.DecimalFormat;
 
-public class CharacterSheet {
+public class Stats {
     // Main Stats
     private int strength;
     private int dexterity;
@@ -22,18 +22,19 @@ public class CharacterSheet {
 
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
-    protected CharacterSheet(int strength,int dexterity,int intelligence,int constitution) {
+    protected Stats(int strength,int dexterity,int intelligence,int constitution) {
         this.setBaseStats(strength, dexterity, intelligence, constitution);
     }
 
     public String toString(){
-        return "  ======== STATS ========"+
-                "\nST "+this.strength+" | DX "+this.dexterity+" | IQ "+this.intelligence+" | HT "+this.constitution+
+        return "   =========== STATS ==========="+
+                "\n   ST "+this.strength+" | DX "+this.dexterity+" | IQ "+this.intelligence+" | HT "+this.constitution+
+                "\n      ------------------------"+
                 "\nWillpower: "+this.willpower+"        Perception: "+this.perception+
-                "\nSpeed: "+df.format(this.baseSpeed)+"m/s  Lift: "+df.format(this.baseLift)+"kg"+
-                "\n  ------------------------"+
-                "\n Max HP: "+this.maxHealth+"  Max Energy: "+this.maxEnergy+
-                "\n  ========================";
+                "\nSpeed: "+df.format(this.baseSpeed)+"m/s  Basic Lift: "+df.format(this.baseLift)+"kg"+
+                "\n      ------------------------"+
+                "\n    Max HP: "+this.maxHealth+"  Max Energy: "+this.maxEnergy+
+                "\n   ==============================\n";
     }
 
     protected void setBaseStats(int strength,int dexterity,int intelligence,int constitution) {
@@ -45,10 +46,10 @@ public class CharacterSheet {
     }
 
     protected void updateDerivatedStats(){
-        this.maxHealth = this.strength;
+        this.maxHealth = this.strength * 10;
+        this.maxEnergy = this.constitution * 10;
         this.willpower = this.intelligence;
         this.perception = this.intelligence;
-        this.maxEnergy = this.constitution;
         this.baseSpeed = 1.0 * (this.constitution + this.dexterity) / 4;
         this.baseLift = 1.0 * Math.pow(this.strength,2)/10;
     }

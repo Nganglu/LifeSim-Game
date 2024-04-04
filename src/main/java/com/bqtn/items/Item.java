@@ -20,7 +20,10 @@ public class Item {
     }
 
     public String getName() {
-        return this.name;
+        return this.name+
+                "\n\""+this.description+"\""+
+                "\nWeight: "+this.weight/1000+"kg  |  "+this.volume+"ml"+
+                "\nCondition: "+this.condition;
     }
 
     public String getDescription() {
@@ -69,6 +72,17 @@ public class Item {
 
     public void unsetIsBeingWorn(){
         System.out.println("Item is not wearable");
+    }
+
+    public boolean canWearOnSlot(InventorySlot slot){
+        switch (slot.toString().toLowerCase()) {
+            case "right hand":
+            case "left hand":
+            case "both hands":
+                return true;
+            default:
+                return false;
+        }
     }
     
 }
